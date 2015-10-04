@@ -15,11 +15,12 @@ class virt::params {
     /^physical|^kvm/: {
       $servicename = $operatingsystem ? {
         'Debian' => 'libvirt-bin',
+        'Ubuntu' => 'libvirt-bin',
         default  => 'libvirtd',
       }
       $packages = $operatingsystem ? {
         'Debian' => [ 'kvm', 'libvirt0', 'libvirt-bin', 'qemu', 'virtinst', 'libvirt-ruby' ],
-        'Ubuntu' => [ 'ubuntu-virt-server', 'python-vm-builder', 'kvm', 'qemu', 'qemu-kvm', 'libvirt-ruby' ],
+        'Ubuntu' => [ 'ubuntu-virt-server', 'python-vm-builder', 'kvm', 'qemu', 'qemu-kvm', 'ruby-libvirt' ],
         'Fedora' => [ 'kvm', 'qemu', 'libvirt', 'python-virtinst', 'ruby-libvirt' ],
         'CentOS' => [ 'qemu-kvm', 'libvirt', 'python-virtinst', 'ruby-libvirt' ],
       }
@@ -34,6 +35,19 @@ class virt::params {
         'Ubuntu' => [ 'python-vm-builder', 'ubuntu-xen-server', 'libvirt-ruby' ],
         'Fedora' => [ 'kernel-xen', 'xen', 'ruby-libvirt' ],
       }
+    } default: {
+      	$servicename = $operatingsystem ? {
+        	'Debian' => 'libvirt-bin',
+        	'Ubuntu' => 'libvirt-bin',
+        	default  => 'libvirtd',
+      	}
+
+        $packages = $operatingsystem ? {
+			'Debian' => [ 'kvm', 'libvirt0', 'libvirt-bin', 'qemu', 'virtinst', 'libvirt-ruby' ],
+        	'Ubuntu' => [ 'ubuntu-virt-server', 'python-vm-builder', 'qemu', 'qemu-kvm', 'ruby-libvirt' ],
+        	'Fedora' => [ 'kvm', 'qemu', 'libvirt', 'python-virtinst', 'ruby-libvirt' ],
+        	'CentOS' => [ 'qemu-kvm', 'libvirt', 'python-virtinst', 'ruby-libvirt' ],
+        }
     }
   }
 }
